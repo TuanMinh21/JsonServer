@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>phòng ngủ</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/handle_bedroom.js"></script>
+
+    <link rel="stylesheet" href="web.css">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.js"></script>
+    <style>
+        body {
+            background-color: aliceblue !important;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="jumbotron jumbotron-fluid header banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="/img/logo5.png" alt="image" class="header_logo-img" />
+                </div>
+                <div class="col-md-9 header_banner">
+                    <h1>Nhóm 1</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <div class="row">
+            <a href="http://172.17.9.88:8080/livingroom" class="btn btn-warning">PHÒNG KHÁCH</a>
+            <a href="#" class="btn btn-primary">PHÒNG NGỦ</a>
+            <a href="http://172.17.9.88:8080/kitchenroom" class="btn btn-warning">PHÒNG BẾP</a>
+        </div>
+
+
+        <div class="col-md-9">
+            <!-- Control Panel -->
+            <div class="container text-center">
+                <h2 class="main-text">Phòng ngủ</h2>
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="card">
+                            <img id="denId_01" class="card-img-top" src="/img/light_bulb.png" alt="image" style="width:60%" />
+                            <div class="card-body">
+                                <a href="#" class="btn btn-primary" id="LedON">ON</a>
+                                <a href="#" class="btn btn-primary" id="LedOFF">OFF</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card">
+                            <img id="denId_02" class="card-img-top" src="/img/lanh2.png" alt="image" style="width:60%" />
+                            <div class="card-body">
+                                <a href="#" class="btn btn-primary" id="MachineON">ON</a>
+                                <a href="#" class="btn btn-primary" id="MachineOFF">OFF</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

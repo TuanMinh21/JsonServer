@@ -1,0 +1,29 @@
+{
+  "name": "mysqldemo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "LeMinh",
+  "license": "ISC",
+  "dependencies": {
+    "aa": "^0.1.40",
+    "aedes": "^0.46.1",
+    "ajax": "0.0.4",
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "jquery": "^3.5.1",
+    "moment": "^2.29.1",
+    "mosca": "^2.8.3",
+    "mqtt": "^4.2.8",
+    "mysql": "github:mysqljs/mysql",
+    "socket.io": "^3.1.2",
+    "ttn": "^2.3.3"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "description": ""
+}
