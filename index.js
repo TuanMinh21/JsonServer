@@ -41,6 +41,7 @@ const server = app.listen(PORT, function() { // server = app.listen(PORT, IP, fu
 // mqtt connect
 client.on('connect', function() {
     client.subscribe(Topic, { qos: 1 }); // Doi du lieu ESP32, ESP8266
+    console.log("subscribe topic...");
 });
 
 client.on("error", function(error) {
