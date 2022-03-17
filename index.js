@@ -33,7 +33,7 @@ const PORT = process.env.PORT || 8000;
 const server = app.listen(PORT, function() { // server = app.listen(PORT, IP, function()
     let host = server.address().address;
     let port = server.address().port;
-    console.log("App Node.js hoat dong tai dia chi: http://%s:%s", host, port);
+    console.log("App Node.js hoat dong tai port: http://%s:%s", port);
     //console.log("App Node.js dang lang nghe tai port: %s", port);
 });
 
