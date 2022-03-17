@@ -1,4 +1,4 @@
-var socket = io("http://172.17.9.88:8080");
+var socket = io("http://localhost:8000");
 
 $(document).ready(function() {
     var $humidity = $('#humi'); // Define
@@ -7,7 +7,7 @@ $(document).ready(function() {
     // Show DHT value
     $.ajax({
         type: 'GET',
-        url: 'http://172.17.9.88:8080/newDHTvalue',
+        url: 'http://localhost:8000/newDHTvalue',
         success: function(data) {
             let dataItems0 = JSON.parse(data);
             $.each(dataItems0, function(i, order) {
@@ -22,7 +22,7 @@ $(document).ready(function() {
     // Show Light sensor value
     $.ajax({
         type: 'GET',
-        url: 'http://172.17.9.88:8080/newLightvalue',
+        url: 'http://localhost:8000/newLightvalue',
         success: function(data) {
             let dataItems1 = JSON.parse(data);
             $.each(dataItems1, function(i, order) {
@@ -59,7 +59,7 @@ socket.on("Server-send-dht-data", function(data) { // Nhan data tu server socket
     let dataServer = JSON.parse(data);
     $.ajax({
         type: 'POST',
-        url: 'http://172.17.9.88:8080/addtoDHT',
+        url: 'http://localhost:8000/addtoDHT',
         dataType: 'JSON',
         data: {
             humidity: dataServer.humidity,
@@ -77,7 +77,7 @@ socket.on("Server-send-dht-data", function(data) { // Nhan data tu server socket
     $temperature.empty();
     $.ajax({
         type: 'GET',
-        url: 'http://172.17.9.88:8080/newDHTvalue',
+        url: 'http://localhost:8000/newDHTvalue',
         success: function(data) {
             let dataItems0 = JSON.parse(data);
             $.each(dataItems0, function(i, order) {
@@ -96,7 +96,7 @@ socket.on("Server-send-light-data", function(data) { // Nhan data tu server sock
     let dataServer = JSON.parse(data);
     $.ajax({
         type: 'POST',
-        url: 'http://172.17.9.88:8080/addtoLight',
+        url: 'http://localhost:8000/addtoLight',
         dataType: 'JSON',
         data: {
             light: dataServer.light
@@ -112,7 +112,7 @@ socket.on("Server-send-light-data", function(data) { // Nhan data tu server sock
     $light.empty();
     $.ajax({
         type: 'GET',
-        url: 'http://172.17.9.88:8080/newLightvalue',
+        url: 'http://localhost:8000/newLightvalue',
         success: function(data) {
             let dataItems1 = JSON.parse(data);
             $.each(dataItems1, function(i, order) {

@@ -8,7 +8,9 @@ app.use(express.json());
 app.use(express.static('public'));
 app.set("view engine", "ejs");
 app.use('/', routes);
+
 const IP = '172.17.9.88';
+
 
 const Topic = 'SensorState'; //subscribe from websocket, ESP32 Publish.
 const Topic1 = 'RelayState'; // Server publish, ESP32 Subscribe.
@@ -24,11 +26,18 @@ const options = {
 
 const client = mqtt.connect(Broker_URL, options); // Host: mqtt://localhost:1883
 
-const server = app.listen(8080, IP, function() {
+
+const PORT = process.env.PORT || 8000;
+
+
+const server = app.listen(PORT, function() { // server = app.listen(PORT, IP, function()
     let host = server.address().address;
     let port = server.address().port;
     console.log("App Node.js hoat dong tai dia chi: http://%s:%s", host, port);
+    //console.log("App Node.js dang lang nghe tai port: %s", port);
 });
+
+
 // mqtt connect
 client.on('connect', function() {
     client.subscribe(Topic, { qos: 1 }); // Doi du lieu ESP32, ESP8266
@@ -96,6 +105,10 @@ client.on('message', function(Topic, message) { // Sensor state
     } else {
         console.log("Incorrect data!!!");
     }
+});
+
+app.get('/', function(req, res) {
+    res.send('Hello World!');
 });
 app.get('/index', function(req, res) {
     res.render('index.ejs');

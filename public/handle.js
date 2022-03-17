@@ -1,4 +1,4 @@
-var socket = io("http://172.17.9.88:8080");
+var socket = io("http://localhost:8000");
 
 $(document).ready(function() {
     var $orders = $('#orders');
@@ -25,7 +25,7 @@ $(document).ready(function() {
         $orders.load(" ");
         $.ajax({
             type: 'GET',
-            url: 'http://172.17.9.88:8080/info',
+            url: 'http://localhost:8000/info',
             success: function(data) {
                 let dataItems = JSON.parse(data)
                 $.each(dataItems, function(i, order) {

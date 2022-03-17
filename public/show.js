@@ -1,11 +1,11 @@
-var socket = io("http://172.17.9.88:8080");
+var socket = io("http://localhost:8000");
 //var $orders = $('#orders');
 socket.on("Server-send-data", function(data) { // Nhan data tu server socketio (addinfo)
     var $orders = $('#orders');
     let dataServer = JSON.parse(data);
     $.ajax({
         type: 'POST',
-        url: 'http://172.17.9.88:8080/addtoDHT',
+        url: 'http://localhost:8000/addtoDHT',
         dataType: 'JSON',
         data: {
             humidity: dataServer.humidity,
@@ -23,7 +23,7 @@ socket.on("Server-send-data", function(data) { // Nhan data tu server socketio (
     $orders.load(" ");
     $.ajax({
         type: 'GET',
-        url: 'http://172.17.9.88:8080/info',
+        url: 'http://localhost:8000/info',
         success: function(data) {
             let dataItems = JSON.parse(data)
             $.each(dataItems, function(i, order) {
@@ -40,7 +40,7 @@ socket.on("Server-req-remove-data", function(data) { // Nhan data tu server sock
     let dataServer = JSON.parse(data);
     $.ajax({
         type: 'POST',
-        url: 'http://172.17.9.88:8080/deleteDHT',
+        url: 'http://localhost:8000/deleteDHT',
         dataType: 'JSON',
         data: {
             diachid: dataServer.id
@@ -57,7 +57,7 @@ socket.on("Server-req-remove-data", function(data) { // Nhan data tu server sock
     $orders.load(" ");
     $.ajax({
         type: 'GET',
-        url: 'http://172.17.9.88:8080/info',
+        url: 'http://localhost:8000/info',
         success: function(data) {
             let dataItems = JSON.parse(data)
             $.each(dataItems, function(i, order) {
@@ -75,7 +75,7 @@ $(document).ready(function() {
     var $orders = $('#orders');
     $.ajax({
         type: 'GET',
-        url: 'http://172.17.9.88:8080/info',
+        url: 'http://localhost:8000/info',
         success: function(data) {
             let dataItems = JSON.parse(data)
             $.each(dataItems, function(i, order) {
@@ -92,7 +92,7 @@ socket.on("Server-ledstate", function(data) { // Nhan data tu server socketio (a
     $orders.load(" ");
     $.ajax({
         type: 'GET',
-        url: 'http://172.17.9.88:8080/info',
+        url: 'http://localhost:8000/info',
         success: function(data) {
             let dataItems = JSON.parse(data)
             $.each(dataItems, function(i, order) {

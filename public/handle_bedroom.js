@@ -1,4 +1,4 @@
-var socket = io("http://172.17.9.88:8080");
+var socket = io("http://localhost:8000");
 
 $(document).ready(function() {
 
