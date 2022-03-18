@@ -2,10 +2,10 @@ const express = require('express');
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'iotsystem'
+    host: 'bqynrymxebl1rc9xp3dm-mysql.services.clever-cloud.com',
+    user: 'ugw90nd4vqkvhqjs',
+    password: 'KwiLoMBc1eVmpLAdVBCR',
+    database: 'bqynrymxebl1rc9xp3dm'
 });
 
 //Connect

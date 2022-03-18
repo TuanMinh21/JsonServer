@@ -25,7 +25,7 @@ $(document).ready(function() {
         $orders.load(" ");
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8000/info',
+            url: 'https://twillight.herokuapp.co/info',
             success: function(data) {
                 let dataItems = JSON.parse(data)
                 $.each(dataItems, function(i, order) {
