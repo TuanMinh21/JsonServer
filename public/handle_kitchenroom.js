@@ -1,4 +1,4 @@
-var socket = io("http://localhost:8000");
+var socket = io("https://twillight.herokuapp.com");
 
 $(document).ready(function() {
     var $humidity = $('#humi'); // Define
@@ -6,7 +6,7 @@ $(document).ready(function() {
     var $gas = $('#gas');
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8000/newDHTvalue',
+        url: 'https://twillight.herokuapp.com/newDHTvalue',
         success: function(data) {
             let dataItems = JSON.parse(data);
             $.each(dataItems, function(i, order) {
@@ -21,7 +21,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8000/newGasvalue',
+        url: 'https://twillight.herokuapp.com/newGasvalue',
         success: function(data) {
             let dataItems = JSON.parse(data);
             $.each(dataItems, function(i, order) {
@@ -49,7 +49,7 @@ socket.on("Server-send-dht-data", function(data) { // Nhan data tu server socket
     let dataServer = JSON.parse(data);
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8000/addtoDHT',
+        url: 'https://twillight.herokuapp.com/addtoDHT',
         dataType: 'JSON',
         data: {
             humidity: dataServer.humidity,
@@ -67,7 +67,7 @@ socket.on("Server-send-dht-data", function(data) { // Nhan data tu server socket
     $temperature.empty();
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8000/newDHTvalue',
+        url: 'https://twillight.herokuapp.com/newDHTvalue',
         success: function(data) {
             let dataItems = JSON.parse(data);
             $.each(dataItems, function(i, order) {
@@ -85,7 +85,7 @@ socket.on("Server-send-gas-data", function(data) { // Nhan data tu server socket
     let dataServer = JSON.parse(data);
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8000/addtoGas',
+        url: 'https://twillight.herokuapp.com/addtoGas',
         dataType: 'JSON',
         data: {
             gas: dataServer.gas
@@ -101,7 +101,7 @@ socket.on("Server-send-gas-data", function(data) { // Nhan data tu server socket
     $gas.empty();
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8000/newGasvalue',
+        url: 'https://twillight.herokuapp.com/newGasvalue',
         success: function(data) {
             let dataItems1 = JSON.parse(data);
             $.each(dataItems1, function(i, order) {

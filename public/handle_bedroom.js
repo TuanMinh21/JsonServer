@@ -1,4 +1,4 @@
-var socket = io("http://localhost:8000");
+var socket = io("https://twillight.herokuapp.com");
 
 $(document).ready(function() {
 

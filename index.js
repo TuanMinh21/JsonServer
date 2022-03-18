@@ -9,7 +9,7 @@ app.use(express.static('public'));
 app.set("view engine", "ejs");
 app.use('/', routes);
 
-const IP = '172.17.9.88';
+//const IP = '172.17.9.88';
 
 
 const Topic = 'SensorState'; //subscribe from websocket, ESP32 Publish.

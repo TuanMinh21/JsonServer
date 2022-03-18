@@ -1,4 +1,4 @@
-var socket = io("http://localhost:8000");
+var socket = io("https://twillight.herokuapp.com");
 
 $(document).ready(function() {
     var $humidity = $('#humi'); // Define
@@ -7,7 +7,7 @@ $(document).ready(function() {
     // Show DHT value
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8000/newDHTvalue',
+        url: 'https://twillight.herokuapp.com/newDHTvalue',
         success: function(data) {
             let dataItems0 = JSON.parse(data);
             $.each(dataItems0, function(i, order) {
@@ -22,7 +22,7 @@ $(document).ready(function() {
     // Show Light sensor value
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8000/newLightvalue',
+        url: 'https://twillight.herokuapp.com/newLightvalue',
         success: function(data) {
             let dataItems1 = JSON.parse(data);
             $.each(dataItems1, function(i, order) {
@@ -59,7 +59,7 @@ socket.on("Server-send-dht-data", function(data) { // Nhan data tu server socket
     let dataServer = JSON.parse(data);
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8000/addtoDHT',
+        url: 'https://twillight.herokuapp.com/addtoDHT',
         dataType: 'JSON',
         data: {
             humidity: dataServer.humidity,
@@ -77,7 +77,7 @@ socket.on("Server-send-dht-data", function(data) { // Nhan data tu server socket
     $temperature.empty();
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8000/newDHTvalue',
+        url: 'https://twillight.herokuapp.com/newDHTvalue',
         success: function(data) {
             let dataItems0 = JSON.parse(data);
             $.each(dataItems0, function(i, order) {
@@ -96,7 +96,7 @@ socket.on("Server-send-light-data", function(data) { // Nhan data tu server sock
     let dataServer = JSON.parse(data);
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8000/addtoLight',
+        url: 'https://twillight.herokuapp.com/addtoLight',
         dataType: 'JSON',
         data: {
             light: dataServer.light
@@ -112,7 +112,7 @@ socket.on("Server-send-light-data", function(data) { // Nhan data tu server sock
     $light.empty();
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8000/newLightvalue',
+        url: 'https://twillight.herokuapp.com/newLightvalue',
         success: function(data) {
             let dataItems1 = JSON.parse(data);
             $.each(dataItems1, function(i, order) {
