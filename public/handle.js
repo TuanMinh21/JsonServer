@@ -1,4 +1,4 @@
-var socket = io("https://twillight.herokuapp.com");
+var socket = io("https://twilightdb.herokuapp.com");
 
 $(document).ready(function() {
     var $orders = $('#orders');
@@ -25,7 +25,7 @@ $(document).ready(function() {
         $orders.load(" ");
         $.ajax({
             type: 'GET',
-            url: 'https://twillight.herokuapp.co/info',
+            url: 'https://twilightdb.herokuapp.com/info',
             success: function(data) {
                 let dataItems = JSON.parse(data)
                 $.each(dataItems, function(i, order) {

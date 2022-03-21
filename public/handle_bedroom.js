@@ -1,4 +1,4 @@
-var socket = io("https://twillight.herokuapp.com");
+var socket = io("https://twilightdb.herokuapp.com");
 
 $(document).ready(function() {
 

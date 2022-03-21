@@ -129,4 +129,5 @@ app.get('/showdata', function(req, res) {
 
 
 
-// cloud service. pw: Hikaru1600995860@
+// cloud service for server Heroku. pw: Hikaru1600995860@
+// cloud service for database

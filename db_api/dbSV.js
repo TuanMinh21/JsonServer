@@ -22,7 +22,7 @@ const app = express();
 // Create table DHT
 exports.dht = function() {
     return new Promise(function(resolve, reject) {
-        let sql = "CREATE TABLE dht(id MEDIUMINT NOT NULL AUTO_INCREMENT, humidity VARCHAR(7), temperature VARCHAR(7), PRIMARY KEY(id))";
+        let sql = "CREATE TABLE dht(id MEDIUMINT NOT NULL AUTO_INCREMENT, humidity VARCHAR(7), temperature VARCHAR(7), PRIMARY KEY(id));";
         let query = mysql.format(sql);
         db.query(query, function(err, rows, field) {
             if (err) reject(err);
@@ -33,7 +33,7 @@ exports.dht = function() {
 // Create table DHT
 exports.Gas = function() {
     return new Promise(function(resolve, reject) {
-        let sql = "CREATE TABLE GasSensor(id MEDIUMINT NOT NULL AUTO_INCREMENT, gas VARCHAR(7), PRIMARY KEY(id))";
+        let sql = "CREATE TABLE GasSensor(id MEDIUMINT NOT NULL AUTO_INCREMENT, gas VARCHAR(7), PRIMARY KEY(id));";
         let query = mysql.format(sql);
         db.query(query, function(err, rows, field) {
             if (err) reject(err);
@@ -44,7 +44,7 @@ exports.Gas = function() {
 // Create table Light Sensor
 exports.Light = function() {
     return new Promise(function(resolve, reject) {
-        let sql = "CREATE TABLE LightSensor(id MEDIUMINT NOT NULL AUTO_INCREMENT, light VARCHAR(7), PRIMARY KEY(id))";
+        let sql = "CREATE TABLE LightSensor(id MEDIUMINT NOT NULL AUTO_INCREMENT, light VARCHAR(7), PRIMARY KEY(id));";
         let query = mysql.format(sql);
         db.query(query, function(err, rows, field) {
             if (err) reject(err);
