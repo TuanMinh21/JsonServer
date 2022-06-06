@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-    <title>phòng khách</title>
+    <title>cửa chính</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/handle_livingroom.js"></script>
+    <script src="/handle_maindoor.js"></script>
 
     <link rel="stylesheet" href="web.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -39,7 +39,7 @@
                     <img src="./img/logo5.png" alt="" class="header_logo-img">
                 </div>
                 <div class="col-md-9 header_banner">
-                    <h1>Nhóm 1</h1>
+                    <h1>SmartHome</h1>
                 </div>
             </div>
         </div>
@@ -47,28 +47,31 @@
 
     <div class="container">
         <div class="row">
-            <a href="#" class="btn btn-primary">PHÒNG KHÁCH</a>
-            <a href="https://twilightdb.herokuapp.com/bedroom" class="btn btn-warning">PHÒNG NGỦ</a>
-            <a href="https://twilightdb.herokuapp.com/kitchenroom" class="btn btn-warning">PHÒNG BẾP</a>
+            <a href="#" class="btn btn-primary">CỬA CHÍNH</a>
+            <a href="http://192.168.43.1:8000/bedroom" class="btn btn-warning">PHÒNG NGỦ</a>
+            <a href="http://192.168.43.1:8000/kitchenroom" class="btn btn-warning">PHÒNG BẾP</a>
         </div>
 
         <div class="col-md-9">
             <!-- Control Panel -->
             <div class="container text-center">
-                <h2 class="main-text">Phòng khách</h2>
+                <h2 class="main-text">Cửa Chính</h2>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card">
-                            <img id="denId_01" class="card-img-top" src="./img/light_bulb.png" alt="Card image" style="width:60%">
+                            <div id="myDIV">
+                                <img id="door01" class="card-img-top" src="./img/door_close.png" alt="Card image" style="width:70%">
+                            </div>
                             <div class="card-body">
-
-                                <a href="#" class="btn btn-primary" id="LedON">ON</a>
-                                <a href="#" class="btn btn-primary" id="LedOFF">OFF</a>
+                                <div id="door_1" class="round-slider"></div>
+                                <a href="#" class="btn btn-primary" id="OpenDoor">OPEN</a>
+                                <a href="#" class="btn btn-primary" id="CloseDoor">CLOSE</a>
+                                <p>Main Door</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <div class="card">
                             <img id="text" class="card-img-top" src="./img/light_bulb.png" alt="Card image" style="width:60%">
                             <div class="card-body">
@@ -78,7 +81,7 @@
                                 </label>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-md-4">
                         <div class="card">
@@ -87,27 +90,31 @@
                             </div>
                             <div class="card-body">
                                 <div id="light" class="round-slider"></div>
-                                <div class="btn-group">
+                                <!-- <div class="btn-group">
                                     <button href="#" class="btn btn-primary" id="Control">ON</button>
                                     <button href="#" class="btn btn-primary" id="Freedom">OFF</button>
-                                </div>
-                                <p>Light sensor</p>
-                                <p id="nhietdo" style="margin: auto;"> </p>
+                                </div> -->
+                                <p>Light</p>
+                                <!-- <p id="nhietdo" style="margin: auto;"> </p> -->
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="card">
-                            <img id="door" class="card-img-top" src="./img/door_close.png" alt="Card image" style="width:60%">
+                            <div id="myDIV">
+                                <img id="warning01" class="card-img-top" src="./img/warning.jpg" alt="Card image" style="width:70%">
+                            </div>
                             <div class="card-body">
-                                <a href="#" class="btn btn-primary" id="OpenDoor">OPEN</a>
-                                <a href="#" class="btn btn-primary" id="CloseDoor">CLOSE</a>
+                                <div id="warn_1" class="round-slider" style="margin: 25px;"></div>
+                                <!-- <a href="#" class="btn btn-primary" id="OpenDoor">OPEN</a>
+                                <a href="#" class="btn btn-primary" id="CloseDoor">CLOSE</a> -->
+                                <!-- <p>Wanring Main Door</p> -->
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <div class="card">
                             <img class="card-img-top" src="./img/temperature.png" alt="Card image" style="height: 145px;">
                             <div id="temp" class="round-slider" style="margin: 25px;"></div>
@@ -125,7 +132,7 @@
                                 <div>Độ ẩm</div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>

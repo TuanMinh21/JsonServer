@@ -1,17 +1,24 @@
-var socket = io("https://twilightdb.herokuapp.com");
+var socket = io("http://192.168.43.1:8000");
 
 $(document).ready(function() {
+    var $door2 = $('#door_2'); // Define
     var $humidity = $('#humi'); // Define
     var $temperature = $('#temp');
     var $gas = $('#gas');
+    var $led2 = $('#led_2');
+    var $warn2 = $('#warn_2');
+
     $.ajax({
         type: 'GET',
-        url: 'https://twilightdb.herokuapp.com/newDHTvalue',
+        url: 'http://192.168.43.1:8000/kitchensecure',
         success: function(data) {
             let dataItems = JSON.parse(data);
             $.each(dataItems, function(i, order) {
-                $humidity.append(order.humidity + "%");
-                $temperature.append(order.temperature + "°C");
+                $humidity.append(order.humi + "%");
+                $temperature.append(order.temp + "°C");
+                $gas.append(order.gas + "%");
+                if (order.warn2 == 1) $warn2.append("WARNING");
+                else $warn2.append("SAFE");
             });
         },
         error: function() {
@@ -21,39 +28,67 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: 'https://twilightdb.herokuapp.com/newGasvalue',
+        url: 'http://192.168.43.1:8000/kitchenled2',
         success: function(data) {
             let dataItems = JSON.parse(data);
             $.each(dataItems, function(i, order) {
-                $gas.append(order.gas);
+                if (order.led_2 == 1) $led2.append("ON");
+                else $led2.append("OFF");
             });
         },
         error: function() {
             alert('error loading data');
         }
     });
+
+    $.ajax({
+        type: 'GET',
+        url: 'http://192.168.43.1:8000/kitchendoor2',
+        success: function(data) {
+            let dataItems = JSON.parse(data);
+            $.each(dataItems, function(i, order) {
+                if (order.door_2 == 0) $door2.append("OPENED");
+                else $door2.append("CLOSED");
+            });
+        },
+        error: function() {
+            alert('error loading data');
+        }
+    });
+    // button
 
     $('#LedON').click(function(e) {
         //alert("Handler for LedON");
-        socket.emit("Client-ledstate", '{"led3":"1"}');
+        socket.emit("Client-led2", '{"led_2": "1"}');
     });
+
     $('#LedOFF').click(function(e) {
         //alert("Handler for LedOFF");
-        socket.emit("Client-ledstate", '{"led3":"0"}');
+        socket.emit("Client-led2", '{"led_2": "0"}');
+    });
+    $('#OpenDoor').click(function(e) {
+        socket.emit("Client-door2", '{"door_2": "0"}');
+    });
+    $('#CloseDoor').click(function(e) {
+        socket.emit("Client-door2", '{"door_2": "90"}');
     });
 })
 
-socket.on("Server-send-dht-data", function(data) { // Nhan data tu server socketio (addinfo)
-    var $humidity = $('#humi'); // Define
-    var $temperature = $('#temp');
+socket.on("kitchensecure-data", function(data) { // Nhan data tu server socketio (addinfo)
+    var $humi = $('#humi'); // Define
+    var $temp = $('#temp');
+    var $gas = $('#gas');
+    var $warn2 = $('#warn_2');
     let dataServer = JSON.parse(data);
     $.ajax({
         type: 'POST',
-        url: 'https://twilightdb.herokuapp.com/addtoDHT',
+        url: 'http://192.168.43.1:8000/addkitchensecure',
         dataType: 'JSON',
         data: {
-            humidity: dataServer.humidity,
-            temperature: dataServer.temperature
+            humi: dataServer.humi,
+            temp: dataServer.temp,
+            gas: dataServer.gas,
+            warn_2: dataServer.warn_2
         },
         success: function(newdata) {
             // Thanh cong
@@ -63,16 +98,21 @@ socket.on("Server-send-dht-data", function(data) { // Nhan data tu server socket
         }
     });
     // reload data
-    $humidity.empty();
-    $temperature.empty();
+    $humi.empty();
+    $temp.empty();
+    $gas.empty();
+    $warn2.empty();
     $.ajax({
         type: 'GET',
-        url: 'https://twilightdb.herokuapp.com/newDHTvalue',
+        url: 'http://192.168.43.1:8000/kitchensecure',
         success: function(data) {
             let dataItems = JSON.parse(data);
             $.each(dataItems, function(i, order) {
-                $temperature.append(order.temperature + "°C");
-                $humidity.append(order.humidity + "%");
+                $humi.append(order.humi + "%");
+                $temp.append(order.temp + "°C");
+                $gas.append(order.gas + "%");
+                if (order.warn_2 == 1) $warn2.append("WARNING");
+                else $warn2.append("SAFE");
             });
         },
         error: function() {
@@ -80,15 +120,15 @@ socket.on("Server-send-dht-data", function(data) { // Nhan data tu server socket
         }
     });
 });
-socket.on("Server-send-gas-data", function(data) { // Nhan data tu server socketio (addinfo)
-    var $gas = $('#gas');
+socket.on("kitchenled2-data", function(data) { // Nhan data tu server socketio (addinfo)
+    var $led2 = $('#led_2');
     let dataServer = JSON.parse(data);
     $.ajax({
         type: 'POST',
-        url: 'https://twilightdb.herokuapp.com/addtoGas',
+        url: 'http://192.168.43.1:8000/addled2',
         dataType: 'JSON',
         data: {
-            gas: dataServer.gas
+            led_2: dataServer.led_2
         },
         success: function(newdata) {
             // Thanh cong
@@ -98,14 +138,50 @@ socket.on("Server-send-gas-data", function(data) { // Nhan data tu server socket
         }
     });
     // reload data
-    $gas.empty();
+    $led2.empty();
     $.ajax({
         type: 'GET',
-        url: 'https://twilightdb.herokuapp.com/newGasvalue',
+        url: 'http://192.168.43.1:8000/kitchenled2',
         success: function(data) {
             let dataItems1 = JSON.parse(data);
             $.each(dataItems1, function(i, order) {
-                $gas.append(order.gas);
+                if (order.led_2 == 1) $led2.append("ON");
+                else $led2.append("OFF");
+            });
+        },
+        error: function() {
+            alert('error loading data');
+        }
+    });
+});
+
+socket.on("kitchendoor2-data", function(data) { // Nhan data tu server socketio (addinfo)
+    var $door2 = $('#door_2');
+    let dataServer = JSON.parse(data);
+    $.ajax({
+        type: 'POST',
+        url: 'http://192.168.43.1:8000/adddoor2',
+        dataType: 'JSON',
+        data: {
+            door_2: dataServer.door_2
+        },
+        success: function(newdata) {
+            // Thanh cong
+        },
+        error: function() {
+            alert('error saving data');
+        }
+    });
+    // reload data
+    $door2.empty();
+    $.ajax({
+        type: 'GET',
+        url: 'http://192.168.43.1:8000/kitchendoor2',
+        success: function(data) {
+            let dataItems1 = JSON.parse(data);
+            $.each(dataItems1, function(i, order) {
+                if (order.door_2 == 0) $door2.append("OPENED");
+                else $door2.append("CLOSED");
             });
         },
         error: function() {

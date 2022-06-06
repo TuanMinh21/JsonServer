@@ -38,7 +38,7 @@
                     <img src="/img/logo5.png" alt="image" class="header_logo-img" />
                 </div>
                 <div class="col-md-9 header_banner">
-                    <h1>Nhóm 1</h1>
+                    <h1>SmartHome</h1>
                 </div>
             </div>
         </div>
@@ -48,9 +48,9 @@
 
     <div class="container">
         <div class="row">
-            <a href="https://twilightdb.herokuapp.com/livingroom" class="btn btn-warning">PHÒNG KHÁCH</a>
+            <a href="http://192.168.43.1:8000/maindoor" class="btn btn-warning">CỬA CHÍNH</a>
             <a href="#" class="btn btn-primary">PHÒNG NGỦ</a>
-            <a href="https://twilightdb.herokuapp.com/kitchenroom" class="btn btn-warning">PHÒNG BẾP</a>
+            <a href="http://192.168.43.1:8000/kitchenroom" class="btn btn-warning">PHÒNG BẾP</a>
         </div>
 
 
@@ -60,7 +60,7 @@
                 <h2 class="main-text">Phòng ngủ</h2>
                 <div class="row">
 
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <div class="card">
                             <img id="denId_01" class="card-img-top" src="/img/light_bulb.png" alt="image" style="width:60%" />
                             <div class="card-body">
@@ -78,7 +78,79 @@
                                 <a href="#" class="btn btn-primary" id="MachineOFF">OFF</a>
                             </div>
                         </div>
+                    </div> -->
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div id="myDIV">
+                                <img class="card-img-top" src="./img/light_bulb.png" alt="Card image" style="height: 145px;">
+                            </div>
+                            <div class="card-body">
+                                <div id="led_3" class="round-slider"></div>
+                                <div>LED 3</div>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div id="myDIV">
+                                <img class="card-img-top" src="./img/light_bulb.png" alt="Card image" style="height: 145px;">
+                            </div>
+                            <div class="card-body">
+                                <div id="led_4" class="round-slider"></div>
+                                <a href="#" class="btn btn-primary" id="Led4ON">ON</a>
+                                <a href="#" class="btn btn-primary" id="Led4OFF">OFF</a>
+                                <div>LED 4</div>
+                                <!-- <p id="nhietdo" style="margin: auto;"> </p> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div id="myDIV">
+                                <img class="card-img-top" src="./img/light_bulb.png" alt="Card image" style="height: 145px;">
+                            </div>
+                            <div class="card-body">
+                                <div id="led_5" class="round-slider"></div>
+                                <a href="#" class="btn btn-primary" id="Led5ON">ON</a>
+                                <a href="#" class="btn btn-primary" id="Led5OFF">OFF</a>
+                                <div>LED 5</div>
+                                <!-- <p id="nhietdo" style="margin: auto;"> </p> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div id="myDIV">
+                                <img class="card-img-top" src="./img/light_bulb.png" alt="Card image" style="height: 145px;">
+                            </div>
+                            <div class="card-body">
+                                <div id="led_6" class="round-slider"></div>
+                                <a href="#" class="btn btn-primary" id="Led6ON">ON</a>
+                                <a href="#" class="btn btn-primary" id="Led6OFF">OFF</a>
+                                <div>LED 6</div>
+                                <!-- <p id="nhietdo" style="margin: auto;"> </p> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div id="myDIV">
+                                <img class="card-img-top" src="./img/door_close.png" alt="Card image" style="height: 145px;">
+                            </div>
+                            <div class="card-body">
+                                <div id="door_3" class="round-slider"></div>
+                                <a href="#" class="btn btn-primary" id="OpenDoor">OPEN</a>
+                                <a href="#" class="btn btn-primary" id="CloseDoor">CLOSE</a>
+                                <div>Right Door</div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

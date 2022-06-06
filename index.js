@@ -1,8 +1,13 @@
-﻿const express = require('express');
+﻿// examples data
+// {"warn_1": "1", "door_1": "60"}
+// {"humi": "70", "temp": "32", "gas": "55", "warn_2": "1"}
+
+const express = require('express');
 const app = express();
 const dbSV = require('./db_api/dbSV');
 const routes = require('./db_api/routes');
 const mqtt = require('mqtt');
+//const { NULL } = require('mysql/lib/protocol/constants/types');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
@@ -12,8 +17,8 @@ app.use('/', routes);
 //const IP = '172.17.9.88';
 
 
-const Topic = 'SensorState'; //subscribe from websocket, ESP32 Publish.
-const Topic1 = 'RelayState'; // Server publish, ESP32 Subscribe.
+// const Topic = 'maindoorstate'; //subscribe from websocket, ESP32 Publish.
+// const Topic1 = 'kitchenstate'; // Server publish, ESP32 Subscribe.
 const Broker_URL = 'mqtt://broker.hivemq.com'; // 'mqtt://fdb00560.ap-southeast-1.emqx.cloud'
 
 const options = {
@@ -26,21 +31,19 @@ const options = {
 
 const client = mqtt.connect(Broker_URL, options); // Host: mqtt://localhost:1883
 
-
 const PORT = process.env.PORT || 8000;
-
 
 const server = app.listen(PORT, function() { // server = app.listen(PORT, IP, function()
     let host = server.address().address;
     let port = server.address().port;
-    console.log("App Node.js hoat dong tai port: http://%s:%s", port);
+    console.log("App Node.js hoat dong tai port: http://%s:%s", host, port);
     //console.log("App Node.js dang lang nghe tai port: %s", port);
 });
 
 
 // mqtt connect
 client.on('connect', function() {
-    client.subscribe(Topic, { qos: 1 }); // Doi du lieu ESP32, ESP8266
+    client.subscribe("gateway-state", { qos: 1 }); // Doi du lieu ESP32, ESP8266
     console.log("subscribe topic...");
 });
 
@@ -55,35 +58,48 @@ io.on("connection", function(socket) {
     let dataItem = null;
     console.log("Connect ID: " + socket.id); // ID dang ket noi voi websocket
     socket.on("disconnect", function() {
-        console.log(socket.id + " has disconnect"); // ID ngat ket noi voi websocket
+        console.log(socket.id + " has disconnected"); // ID ngat ket noi voi websocket
     });
 
-    socket.on("Client-send-data", function(data) { // Nhan du lieu tu websocket
-        io.sockets.emit("Server-send-data", data); // Gui du lieu sang web show data
-        client.publish(Topic1, data); // Publish data from websocket
-        //console.log(data);
-    });
-    socket.on("Client-doorstate", function(data) { // Nhan du lieu tu websocket
-        //io.sockets.emit("Server-send-data", data); // Gui du lieu sang web show data
+    socket.on("Client-led4", function(data) { // Nhan du lieu tu websocket
+        io.sockets.emit("bedroomled4-data", data); // Gui du lieu sang web show data
         console.log(data);
-        client.publish(Topic1, data); // Publish data from websocket
-        //console.log(data);
+        client.publish("server-state", data); // Publish data from websocket
     });
-    socket.on("Client-control", function(data) { // Nhan du lieu tu websocket
-        //io.sockets.emit("Server-send-data", data); // Gui du lieu sang web show data
-        client.publish(Topic1, data); // Publish data from websocket
-        //console.log(data);
-    });
-    socket.on("Client-ledstate", function(data) { // Nhan du lieu den LED tu websocket
-        //io.sockets.emit("Server-ledstate", data);
+
+    socket.on("Client-led5", function(data) { // Nhan du lieu tu websocket
+        io.sockets.emit("bedroomled5-data", data); // Gui du lieu sang web show data
         console.log(data);
-        client.publish(Topic1, data); // Publish data with topic "RelayState" from websocket
+        client.publish("server-state", data); // Publish data from websocket
+    });
+    socket.on("Client-led6", function(data) { // Nhan du lieu tu websocket
+        io.sockets.emit("bedroomled6-data", data); // Gui du lieu sang web show data
+        console.log(data);
+        client.publish("server-state", data); // Publish data from websocket
         //console.log(data);
     });
-    socket.on("Client-air-conditioner", function(data) {
-        //io.sockets.emit("Server-req-remove-data", data);
-        client.publish(Topic1, data); // Publish data from air conditioner controller
-        //console.log(data);
+    socket.on("Client-door3", function(data) { // Nhan du lieu tu websocket
+        io.sockets.emit("bedroomdoor3-data", data); // Gui du lieu sang web show data
+        console.log(data);
+        client.publish("server-state", data); // Publish data from websocket
+    });
+
+    socket.on("Client-door2", function(data) { // Nhan du lieu door tu websocket
+        io.sockets.emit("kitchendoor2-data", data);
+        console.log(data);
+        client.publish("server-state", data); // Publish data with topic from websocket
+    });
+
+    socket.on("Client-led2", function(data) { // Nhan du lieu den LED tu websocket
+        io.sockets.emit("kitchenled2-data", data);
+        console.log(data);
+        client.publish("server-state", data); // Publish data with topic from websocket
+    });
+
+    socket.on("Client-door1", function(data) { // maindoor
+        io.sockets.emit("maindoorsecure-data", data);
+        console.log(data);
+        client.publish("server-state", data); // Publish data from air conditioner controller
     });
 });
 client.on('message', function(Topic, message) { // Sensor state
@@ -94,15 +110,37 @@ client.on('message', function(Topic, message) { // Sensor state
     console.log("Topic: " + Topic);
     console.log("Message: " + msg_str);
     var data = JSON.parse(temp);
-    if (data.humidity && data.temperature) { // Nhận được dữ liệu từ DHT sensor
-        console.log("Update new DHT data");
-        io.sockets.emit("Server-send-dht-data", msg_str);
+    //console.log(data.humi);
+    if (data.humi && data.temp && data.gas && data.warn_2) { // Nhận được dữ liệu từ ESP32
+        console.log("Update kitchensecure-data");
+        io.sockets.emit("kitchensecure-data", msg_str);
+    } else if (data.led_2) {
+        console.log("Update kitchenled2-data");
+        io.sockets.emit("kitchenled2-data", msg_str);
+    } else if (data.door_2) {
+        console.log("Update kitchendoor2-data");
+        io.sockets.emit("kitchendoor2-data", msg_str);
+    } else if (data.led_3) {
+        console.log("Update bedroomled3-data");
+        io.sockets.emit("bedroomled3-data", msg_str);
+    } else if (data.led_4) {
+        console.log("Update bedroomled4-data");
+        io.sockets.emit("bedroomled4-data", msg_str);
+    } else if (data.led_5) {
+        console.log("Update bedroomled5-data");
+        io.sockets.emit("bedroomled5-data", msg_str);
+    } else if (data.led_6) {
+        console.log("Update bedroomled6-data");
+        io.sockets.emit("bedroomled6-data", msg_str);
+    } else if (data.door_3) {
+        console.log("Update bedroomdoor3-data");
+        io.sockets.emit("bedroomdoor3-data", msg_str);
     } else if (data.light) {
-        console.log("Update new Light State");
-        io.sockets.emit("Server-send-light-data", msg_str);
-    } else if (data.gas) {
-        console.log("Update new Gas Sensor value");
-        io.sockets.emit("Server-send-gas-data", msg_str);
+        console.log("Update maindoorlight-data");
+        io.sockets.emit("maindoorlight-data", msg_str);
+    } else if (data.warn_1 && data.door_1) {
+        console.log("Update maindoorsecure-data");
+        io.sockets.emit("maindoorsecure-data", msg_str);
     } else {
         console.log("Incorrect data!!!");
     }
@@ -117,17 +155,18 @@ app.get('/index', function(req, res) {
 app.get('/bedroom', function(req, res) {
     res.render('bedroom.ejs');
 });
-app.get('/livingroom', function(req, res) {
-    res.render('livingroom.ejs');
+// app.get('/livingroom', function(req, res) {
+//     res.render('livingroom.ejs');
+// });
+app.get('/maindoor', function(req, res) {
+    res.render('maindoor.ejs');
 });
 app.get('/kitchenroom', function(req, res) {
     res.render('kitchenroom.ejs');
 });
-app.get('/showdata', function(req, res) {
-    res.render('showdata.ejs');
-});
-
-
+// app.get('/showdata', function(req, res) {
+//     res.render('showdata.ejs');
+// });
 
 // cloud service for server Heroku. pw: Hikaru1600995860@
-// cloud service for database
+// cloud service for database (clever cloud). pw: Hikaru1600995860@
